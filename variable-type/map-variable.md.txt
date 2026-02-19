@@ -1,0 +1,22 @@
+provider "aws" {
+ region = "ap-south-1"
+  access_key = "*"
+  secret_key = "*" 
+}
+variable "instancetype" {
+description = "this is instance type value"
+type = map(string)
+default = {
+    "small" = "t3.micro"
+    "med" = "t3.medium"
+    "large" = "t3.large"
+}
+}
+resource "aws_instance" "example" {
+  ami           = "ami-0ff5003538b60d5ec"
+  instance_type = var.instancetype["med"]
+
+  tags = {
+    Name = "HelloWorld"
+  }       
+}
