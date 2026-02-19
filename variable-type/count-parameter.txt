@@ -1,0 +1,17 @@
+rovider "aws" {
+    region = "ap-south-1"
+  access_key = "*"
+  secret_key = "*" 
+}
+
+variable "user_names" {
+  description = "List of IAM usernames to create"
+  type        = list(string)
+  default     = ["dev-user1", "dev-user2", "dev-user3"]
+}
+resource "aws_iam_user" "dev_users" {
+  count = length(var.user_names)
+  
+  name = var.user_names[count.index]
+    
+}
